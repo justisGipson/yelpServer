@@ -1,14 +1,13 @@
-let router = require('express').Router();
-let axios = require('axios');
+require('dotenv').config()
+var express = require('express');
+var app = express();
+var search = require('./controller/searchcontroller');
+var bodyParser = require('body-parser');
 
-router.get('/', (req, res) => {
-    let price = req.query.price;
-    let location = req.query.location;
-    let apiurl = 'https://api.yelp.com/v3/businesses/search?term=restaurants&open_now=true';
+app.use(require('./middleware/headers'));
+app.use('/search', search);
 
-    getRestaurants = async () => {
-        try {
-            return await axios.get()
-        }
-    }
+app.use(bodyParser.json());
+app.listen(process.env.PORT, function(){
+    console.log(`App is listening on ${process.env.PORT}`);
 })
